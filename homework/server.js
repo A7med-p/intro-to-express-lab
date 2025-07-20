@@ -42,14 +42,31 @@ app.get('/collectibles/:index', (req, res) => {
       { name: "Fifty-Inch Heels", price: 175, type: "heel" }
   ];
 
-app.get('/shoes/minPrice/:price', (req, res) => {
-   res.send(shoes.filter((shoes) => shoes.price <= req.params.price))
-});
+// app.get('/shoes/minPrice/:price', (req, res) => {
+//    res.send(shoes.filter((shoes) => shoes.price <= req.params.price))
+// });
 
-app.get('/shoes/maxPrice/:price', (req, res) => {
-   res.send(shoes.filter((shoes) => shoes.price >= req.params.price))
-});
+// app.get('/shoes/maxPrice/:price', (req, res) => {
+//    res.send(shoes.filter((shoes) => shoes.price >= req.params.price))
+// });
 
-app.get('/shoes/type/:type', (req, res) => {
-   res.send(shoes.filter((shoes) => shoes.type == req.params.type))
+// app.get('/shoes/type/:type', (req, res) => {
+//    res.send(shoes.filter((shoes) => shoes.type == req.params.type))
+// });
+
+
+app.get('/shoes', (req, res) => {
+   
+let {minPrice,maxPrice,type} = req.query
+
+if (maxPrice) {
+    res.send(shoes.filter((shoes) => shoes.price >= req.query.maxPrice))
+}
+if (minPrice) {
+    res.send(shoes.filter((shoes) => shoes.price <= req.query.minPrice))
+   
+}
+if (type) {
+    res.send(shoes.filter((shoes) => shoes.type == req.query.type))
+}
 });
